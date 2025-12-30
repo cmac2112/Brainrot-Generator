@@ -13,3 +13,11 @@ riderModule.iml
 /redditJsonTool.sln.DotSettings.user
 /.idea/.idea.redditJsonTool/.idea/vcs.xml
 /output.mp3
+/videoplayback.mp4
+/sample_input.mp3
+/temp_input.mp3
+/ffmpeg/
+/output.srt
+/final_output.mp4
+/subtitles.srt
+/final_video_with_subtitles.mp4

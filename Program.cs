@@ -26,10 +26,24 @@ static class Program
         
         //use the xi api to create text to speech mp3 of the content
         //then eventually add the ability where this generates a video dubbed over with the tts audio
-        var result = await TextToSpeech.ConvertTextToSpeechAsync(parsedResult, apikey);
+        //var result = await TextToSpeech.ConvertTextToSpeechAsync(parsedResult, apikey);
+        
+        //to prevent spamming the api during testing, we will read from a local mp3 file instead
+        var result = await File.ReadAllBytesAsync("sample_input.mp3");
         
         //download the mp3 file
-        await File.WriteAllBytesAsync("output.mp3", result);
-        Console.WriteLine("MP3 file saved as output.mp3");
+        //await File.WriteAllBytesAsync("output.mp3", result);
+        
+        // the ai voice ouput is slow, use ffmpeg to speed it up by 1.5x
+        await FfmpegHelper.SpeedUpMp3FileAsync(result, "output.mp3", 1.5);
+        
+        await FfmpegHelper.AddAudioToVideoAsync("output.mp3", "videoplayback.mp4", "final_output.mp4");
+        
+        await FfmpegHelper.BurnSubtitlesIntoVideoAsync("final_output.mp4", "subtitles.srt", "final_video_with_subtitles.mp4");
+        //convert the mp3 to an srt file
+        
+        
+        
+        Console.WriteLine("MP3 file saved as output.mp3 and sped up by 1.5x.");
     }
 }
