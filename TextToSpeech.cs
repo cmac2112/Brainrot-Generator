@@ -47,7 +47,6 @@ public static class TextToSpeech
             }
 
             result.EnsureSuccessStatusCode();
-            Console.WriteLine("SUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESS");
             byte[] audioBytes = await result.Content.ReadAsByteArrayAsync();
             return audioBytes;
         }

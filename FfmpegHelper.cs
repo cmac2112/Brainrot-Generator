@@ -24,6 +24,7 @@ public static class FfmpegHelper
         };
         process.Start();
 
+        
         string error = await process.StandardError.ReadToEndAsync();
         await process.WaitForExitAsync();
         if (process.ExitCode != 0)
@@ -45,7 +46,7 @@ public static class FfmpegHelper
             StartInfo = new ProcessStartInfo
             {
                 FileName = "ffmpeg/ffmpeg.exe",
-                Arguments = $"-i {inputVideoPath} -vf subtitles={subtitlesPath}:force_style='Alignment=4,Fontsize=20,Outline=2' {outputVideoPath} -y -c:v libx264 -c:a aac -b:a 192k",
+                Arguments = $"-i {inputVideoPath} -vf subtitles={subtitlesPath}:force_style='Alignment=0,Fontsize=15,Outline=2,MarginV=100' {outputVideoPath} -y -c:v libx264 -c:a aac -b:a 192k",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,

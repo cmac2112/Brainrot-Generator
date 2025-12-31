@@ -1,12 +1,20 @@
-﻿namespace redditJsonTool;
+﻿using redditJsonTool.Types;
 
-public static class RedditJsonParser
+namespace redditJsonTool.Interfaces.Implementations;
+
+public class RedditInterfaceImplementation : IRedditInterface
 {
-    public static RedditPost ParseRedditJson(string json)
+    public async Task<Either<ErrorMessage, RedditPost>> GetAndParseRedditPostAsync(string url)
     {
         var redditPost = new RedditPost();
         try
         {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(
+                "RedditJsonParser/v0.0.1 (by /u/cmac2112)");
+
+            var json = await client.GetStringAsync(url);
+            
             var jsonArray = System.Text.Json.JsonDocument.Parse(json).RootElement;
             var postData = jsonArray[0].GetProperty("data").GetProperty("children")[0].GetProperty("data");
 
@@ -29,7 +37,7 @@ public static class RedditJsonParser
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            throw new Exception(ex.Message);
+            return new ErrorMessage("Failed to fetch or parse Reddit post: " + ex.Message);
         }
     }
 }
