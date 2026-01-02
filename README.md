@@ -1,6 +1,6 @@
 # Brainrot Generator!
 
-This simple app allows you to provide a url of a reddit post of your choosing and create a brainrot video based on its content!
+This simple app I created on a day off that allows you to provide a url of a reddit post of your choosing and create a brainrot video based on its content!
 
 ### How it works
 On every reddit thread, you can add .json to the end of any url and it will give you the raw json of the post. The flow is like:
